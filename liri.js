@@ -1,8 +1,17 @@
 //where to put require statements
 require("dotenv").config();
 
-var spotify = require("keys.spotify");
 
+// needs to load spotify from my keys.js
+const Spotify = require("node-spotify-api");
+// need for keys
+const keys = require("./keys");
+// need for axios requests
+const axios = require("axios");
+// need for moment
+const moment = require("moment");
+
+var spotify =  new Spotify(keys.spotify);
 
 /*
 app.js should be able to take these commands
