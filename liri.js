@@ -1,6 +1,12 @@
 //where to put require statements
 require("dotenv").config();
 
+// need the ability for the user to iput some text
+var userCommand = process.argv[2];
+console.log(userCommand);
+var userInput =  process.argv.slice(3).join(" ");
+console.log(userInput);
+
 
 // needs to load spotify from my keys.js
 const Spotify = require("node-spotify-api");
