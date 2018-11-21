@@ -2,11 +2,29 @@
 require("dotenv").config();
 
 // need the ability for the user to iput some text
-var userCommand = process.argv[2];
-console.log(userCommand);
-var userInput =  process.argv.slice(3).join(" ");
-console.log(userInput);
+const userCommand = process.argv[2];
+// console.log(userCommand);
+const userInput =  process.argv.slice(3).join(" ");
+// console.log(userInput);
 
+//need to set up cases for the userCommand variable
+switch (userCommand) {
+case "concert-this":
+  concert();
+  break;
+  //spotify-this-song
+case "spotify-this-song":
+  spot();
+  break;
+  //movie-this
+case "movie-this":
+  movie();
+  break;
+  //do-what-it-says
+case "do-what-it-says":
+  command();
+  break;
+}
 
 // needs to load spotify from my keys.js
 const Spotify = require("node-spotify-api");
@@ -19,6 +37,21 @@ const moment = require("moment");
 
 var spotify =  new Spotify(keys.spotify);
 
+function concert() {
+  console.log(userInput);
+}
+
+function spot() {
+  console.log(userInput);
+}
+
+function movie() {
+  console.log(userInput);
+}
+
+function command() {
+  console.log(userInput);
+}
 /*
 app.js should be able to take these commands
 
