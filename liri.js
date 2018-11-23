@@ -45,9 +45,20 @@ function concert() {
   // https://rest.bandsintown.com/artists/kendrick%20lamar/events?app_id=99b06d609f74ba6eff2a4075ad6c48d6
   axios.get("https://rest.bandsintown.com/artists/"+ userInput +"/events?app_id=" + conc).
   then(function(response){
-    var newTime = moment(response.data.datetime).format("MM DD YYYY")
-    console.log(response.data[0]); //only doing one right now so that console does not overload
-    console.log(newTime)
+    for (var i = 0; i < response.data.length; i++){
+    var newTime = moment(response.data[i].datetime).format("MM DD YYYY")
+    // console.log(response.data[i]); //only doing one right now so that console does not overload
+    // console.log(newTime)
+    console.log(
+`
+----------------
+Name: ${response.data[i].venue.name}
+Location: ${response.data[i].venue.city}, ${response.data[i].venue.region}, ${response.data[i].venue.country}
+Concert Date: ${newTime}
+----------------
+`
+    )
+    }
     }).catch(function (error){
       console.log(error);
     });
