@@ -5,6 +5,19 @@ require("dotenv").config();
 const userCommand = process.argv[2];
 // console.log(userCommand);
 const userInput =  process.argv.slice(3).join(" ");
+
+// for spotify key
+const Spotify = require("node-spotify-api");
+// need for keys
+const keys = require("./keys");
+// need for axios requests
+const axios = require("axios");
+// need for moment
+const moment = require("moment");
+
+var spotify =  new Spotify(keys.spotify);
+var conc = new concert(keys.concrt);
+
 // console.log(userInput);
 
 //need to set up cases for the userCommand variable
@@ -26,31 +39,48 @@ case "do-what-it-says":
   break;
 }
 
-// needs to load spotify from my keys.js
-const Spotify = require("node-spotify-api");
-// need for keys
-const keys = require("./keys");
-// need for axios requests
-const axios = require("axios");
-// need for moment
-const moment = require("moment");
-
-var spotify =  new Spotify(keys.spotify);
 
 function concert() {
-  console.log(userInput);
+
+  // https://rest.bandsintown.com/artists/kendrick%20lamar/events?app_id=99b06d609f74ba6eff2a4075ad6c48d6
+  axios.get("https://rest.bandsintown.com/artists/"+ userInput +"/events?app_id=" + conc).
+  then(function(response){
+    var newTime = moment(response.data.datetime).format("MM DD YYYY")
+    console.log(response.data[0]); //only doing one right now so that console does not overload
+    console.log(newTime)
+    }).catch(function (error){
+      console.log(error);
+    });
+  // name of the venue
+  // venue location
+  // date of the event (use moment to format this as MM/DD/YYYY)
 }
 
 function spot() {
-  console.log(userInput);
+  console.log(userInput + "2");
+  // artist(s)
+  // the song's name
+  // a preview link of the song from spotify
+  // the album that the song is from
+  // if no song is provided, default to "the sign" by ace of base
 }
 
 function movie() {
-  console.log(userInput);
+  console.log(userInput + "3");
+  // title of the movie
+  // year the movie came out
+  // imdb rating of the movie
+  // rotten tomatoes rating of the movie
+  // country where the movie was produced
+  // language of the movie
+  // plot of the movie
+  // actors in the movie
+  // if no movie is provided, default to Mr. Nobody
 }
 
 function command() {
-  console.log(userInput);
+  console.log(userInput + "4");
+  // should run spotify-this-song for I want it that way
 }
 /*
 app.js should be able to take these commands
