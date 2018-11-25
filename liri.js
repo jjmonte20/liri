@@ -73,39 +73,44 @@ function spot() {
     if (err) {
       console.log("Error: " + err);
     } else {
+      for (var i = 0; i < data.tracks.items.length; i++){
       console.log(
 `
 ----------------
-Artist(s): ${data.tracks.items[0].artists[0].name}
-Track: ${data.tracks.items[0].name}
-Album: ${data.tracks.items[0].album.name}
-Preview Link: ${data.tracks.items[0].preview_url}
+Artist(s): ${data.tracks.items[i].artists[0].name}
+Track: ${data.tracks.items[i].name}
+Album: ${data.tracks.items[i].album.name}
+Preview Link: ${data.tracks.items[i].preview_url}
 ----------------
 `
-      );
+);
       // console.log(data.tracks.items[0].preview_url);
       // console.log(data.tracks.items[0].name);
       // console.log(data.tracks.items[0].album.name);
       // console.log(data.tracks.items[0].artists[0].name);
-    }}
+        }
+      }
+    }
   )} else {
   
   spotify.search({ type: 'track', query: userInput, limit: 20}, function(err, data) {
     if (err) {
       console.log("Error: " + err);
     } else {
+      for (var i = 0; i < data.tracks.items.length; i++){
       console.log(
 `
 ----------------
-Artist(s): ${data.tracks.items[0].artists[0].name}
-Track: ${data.tracks.items[0].name}
-Album: ${data.tracks.items[0].album.name}
-Preview Link: ${data.tracks.items[0].preview_url}
+Artist(s): ${data.tracks.items[i].artists[0].name}
+Track: ${data.tracks.items[i].name}
+Album: ${data.tracks.items[i].album.name}
+Preview Link: ${data.tracks.items[i].preview_url}
 ----------------
 `
-              );
-    }
-  })
+);
+        } 
+      }
+    })
   }
   // artist(s)
   // the song's name
