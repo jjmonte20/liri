@@ -67,9 +67,20 @@ Concert Date: ${newTime}
 }
 
 function spot() {
-  console.log(userInput + "2");
+  if (userInput === ""){
   
-  spotify.search({ type: 'track', query: "dream on", limit: 20}, function(err, data) {
+  spotify.search({ type: 'track', query: "The sign", limit: 20}, function(err, data) {
+    if (err) {
+      console.log("Error: " + err);
+    } else {
+      console.log(data.tracks.items[0].preview_url);
+      console.log(data.tracks.items[0].name);
+      console.log(data.tracks.items[0].album.name);
+      console.log(data.tracks.items[0].artists[0].name);
+    }}
+  )} else {
+  
+  spotify.search({ type: 'track', query: userInput, limit: 20}, function(err, data) {
     if (err) {
       console.log("Error: " + err);
     } else {
@@ -79,6 +90,7 @@ function spot() {
       console.log(data.tracks.items[0].artists[0].name);
     }
   })
+  }
   // artist(s)
   // the song's name
   // a preview link of the song from spotify
