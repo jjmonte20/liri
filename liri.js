@@ -73,10 +73,20 @@ function spot() {
     if (err) {
       console.log("Error: " + err);
     } else {
-      console.log(data.tracks.items[0].preview_url);
-      console.log(data.tracks.items[0].name);
-      console.log(data.tracks.items[0].album.name);
-      console.log(data.tracks.items[0].artists[0].name);
+      console.log(
+`
+----------------
+Artist(s): ${data.tracks.items[0].artists[0].name}
+Track: ${data.tracks.items[0].name}
+Album: ${data.tracks.items[0].album.name}
+Preview Link: ${data.tracks.items[0].preview_url}
+----------------
+`
+      );
+      // console.log(data.tracks.items[0].preview_url);
+      // console.log(data.tracks.items[0].name);
+      // console.log(data.tracks.items[0].album.name);
+      // console.log(data.tracks.items[0].artists[0].name);
     }}
   )} else {
   
@@ -84,10 +94,16 @@ function spot() {
     if (err) {
       console.log("Error: " + err);
     } else {
-      console.log(data.tracks.items[0].preview_url);
-      console.log(data.tracks.items[0].name);
-      console.log(data.tracks.items[0].album.name);
-      console.log(data.tracks.items[0].artists[0].name);
+      console.log(
+`
+----------------
+Artist(s): ${data.tracks.items[0].artists[0].name}
+Track: ${data.tracks.items[0].name}
+Album: ${data.tracks.items[0].album.name}
+Preview Link: ${data.tracks.items[0].preview_url}
+----------------
+`
+              );
     }
   })
   }
