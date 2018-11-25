@@ -42,7 +42,6 @@ case "do-what-it-says":
 
 function concert() {
 
-  // https://rest.bandsintown.com/artists/kendrick%20lamar/events?app_id=99b06d609f74ba6eff2a4075ad6c48d6
   axios.get("https://rest.bandsintown.com/artists/"+ userInput +"/events?app_id=" + conc).
   then(function(response){
     for (var i = 0; i < response.data.length; i++){
@@ -60,7 +59,7 @@ Concert Date: ${newTime}
     )
     }
     }).catch(function (error){
-      console.log(error);
+      // console.log(error);
     });
   // name of the venue
   // venue location
@@ -69,6 +68,17 @@ Concert Date: ${newTime}
 
 function spot() {
   console.log(userInput + "2");
+  
+  spotify.search({ type: 'track', query: "dream on", limit: 20}, function(err, data) {
+    if (err) {
+      console.log("Error: " + err);
+    } else {
+      console.log(data.tracks.items[0].preview_url);
+      console.log(data.tracks.items[0].name);
+      console.log(data.tracks.items[0].album.name);
+      console.log(data.tracks.items[0].artists[0].name);
+    }
+  })
   // artist(s)
   // the song's name
   // a preview link of the song from spotify
