@@ -69,18 +69,16 @@ Concert Date: ${newTime}
 function spot() {
   if (userInput === ""){
   
-  spotify.search({ type: 'track', query: "The sign", limit: 20}, function(err, data) {
-    if (err) {
-      console.log("Error: " + err);
-    } else {
-      for (var i = 0; i < data.tracks.items.length; i++){
-      console.log(
+  spotify.request('https://api.spotify.com/v1/tracks/0hrBpAOgrt8RXigk83LLNE')
+  .then(function(data){
+    // console.log(Object.keys(data));
+    console.log(
 `
 ----------------
-Artist(s): ${data.tracks.items[i].artists[0].name}
-Track: ${data.tracks.items[i].name}
-Album: ${data.tracks.items[i].album.name}
-Preview Link: ${data.tracks.items[i].preview_url}
+Artist(s): ${data.artists[0].name}
+Track: ${data.name}
+Album: ${data.album.name}
+Preview Link: ${data.preview_url}
 ----------------
 `
 );
@@ -88,8 +86,7 @@ Preview Link: ${data.tracks.items[i].preview_url}
       // console.log(data.tracks.items[0].name);
       // console.log(data.tracks.items[0].album.name);
       // console.log(data.tracks.items[0].artists[0].name);
-        }
-      }
+      
     }
   )} else {
   
