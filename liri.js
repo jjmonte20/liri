@@ -134,7 +134,9 @@ Actors: ${res.data.Actors}
       );
     })
   } else {
-  axios.get("http://www.omdbapi.com/?t="+ userInput +"&apikey=trilogy").then(
+    let m = userInput.replace(/ /g,"+"); 
+    console.log(m);
+  axios.get("http://www.omdbapi.com/?t="+ m +"&apikey=trilogy").then(
     function(res){
       console.log(
 `
@@ -142,7 +144,7 @@ Actors: ${res.data.Actors}
 Title: ${res.data.Title}
 Release: ${res.data.Year}
 IMDB Rating: ${res.data.imdbRating}
-Rotten Tomatoes Rating: ${res.data.Ratings[1].Source}
+Rotten Tomatoes Rating: ${res.data.Ratings[1].Value}
 Country: ${res.data.Country}
 Language: ${res.data.Language}
 Plot: ${res.data.Plot}
