@@ -1,6 +1,7 @@
 //where to put require statements
 require("dotenv").config();
 
+const fs = require("fs");
 // need the ability for the user to iput some text
 const userCommand = process.argv[2];
 // console.log(userCommand);
@@ -17,26 +18,24 @@ const moment = require("moment");
 
 var spotify =  new Spotify(keys.spotify);
 var conc = new concert(keys.concrt);
+// var mov = new moves(keys.move);
 
 // console.log(userInput);
 
 //need to set up cases for the userCommand variable
-switch (userCommand) {
-case "concert-this":
+if (userCommand === "") {
+  console.log("Please enter a command");
+} else if (userCommand === "concert-this") {
   concert();
-  break;
+} else if (userCommand === "spotify-this-song"){
   //spotify-this-song
-case "spotify-this-song":
   spot();
-  break;
+} else if (userCommand === "movie-this"){
   //movie-this
-case "movie-this":
   movie();
-  break;
+} else if (userCommand === "do-what-it-says"){
   //do-what-it-says
-case "do-what-it-says":
   command();
-  break;
 }
 
 
@@ -64,7 +63,7 @@ Concert Date: ${newTime}
   // name of the venue
   // venue location
   // date of the event (use moment to format this as MM/DD/YYYY)
-}
+};
 
 function spot() {
   if (userInput === ""){
@@ -86,7 +85,6 @@ Preview Link: ${data.preview_url}
       // console.log(data.tracks.items[0].name);
       // console.log(data.tracks.items[0].album.name);
       // console.log(data.tracks.items[0].artists[0].name);
-      
     }
   )} else {
   
@@ -117,7 +115,44 @@ Preview Link: ${data.tracks.items[i].preview_url}
 }
 
 function movie() {
-  console.log(userInput + "3");
+  // console.log(userInput + "3");
+  if (userInput === ""){
+    axios.get("http://www.omdbapi.com/?t=Mr.Nobody&apikey=trilogy").then(
+    function(res){
+      console.log(
+`
+----------------
+Title: ${res.data.Title}
+Release: ${res.data.Year}
+IMDB Rating: ${res.data.imdbRating}
+Rotten Tomatoes Rating: ${res.data.Ratings[1].Source}
+Country: ${res.data.Country}
+Language: ${res.data.Language}
+Plot: ${res.data.Plot}
+Actors: ${res.data.Actors}
+----------------
+`
+      );
+    })
+  } else {
+  axios.get("http://www.omdbapi.com/?t="+ userInput+"&apikey=trilogy").then(
+    function(res){
+      console.log(
+`
+----------------
+Title: ${res.data.Title}
+Release: ${res.data.Year}
+IMDB Rating: ${res.data.imdbRating}
+Rotten Tomatoes Rating: ${res.data.Ratings[1].Source}
+Country: ${res.data.Country}
+Language: ${res.data.Language}
+Plot: ${res.data.Plot}
+Actors: ${res.data.Actors}
+----------------
+`
+      );
+    }
+  )
   // title of the movie
   // year the movie came out
   // imdb rating of the movie
@@ -127,10 +162,15 @@ function movie() {
   // plot of the movie
   // actors in the movie
   // if no movie is provided, default to Mr. Nobody
+  }
 }
-
 function command() {
   console.log(userInput + "4");
+  fs.readFile("random.txt", "utf8", function(err, data){
+    console.log(data);
+  });
+
+  console.log("after calling readFile");
   // should run spotify-this-song for I want it that way
 }
 /*
