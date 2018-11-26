@@ -3,9 +3,9 @@ require("dotenv").config();
 
 const fs = require("fs");
 // need the ability for the user to iput some text
-const userCommand = process.argv[2];
+let userCommand = process.argv[2];
 // console.log(userCommand);
-const userInput =  process.argv.slice(3).join(" ");
+let userInput =  process.argv.slice(3).join(" ");
 
 // for spotify key
 const Spotify = require("node-spotify-api");
@@ -17,7 +17,6 @@ const axios = require("axios");
 const moment = require("moment");
 
 var spotify =  new Spotify(keys.spotify);
-var conc = new concert(keys.concrt);
 // var mov = new moves(keys.move);
 
 // console.log(userInput);
@@ -26,7 +25,7 @@ var conc = new concert(keys.concrt);
 if (userCommand === "") {
   console.log("Please enter a command");
 } else if (userCommand === "concert-this") {
-  concert();
+  concert(keys.concrt);
 } else if (userCommand === "spotify-this-song"){
   //spotify-this-song
   spot();
@@ -40,8 +39,7 @@ if (userCommand === "") {
 
 
 function concert() {
-
-  axios.get("https://rest.bandsintown.com/artists/"+ userInput +"/events?app_id=" + conc).
+  axios.get("https://rest.bandsintown.com/artists/"+ userInput +"/events?app_id=" + keys.concrt).
   then(function(response){
     for (var i = 0; i < response.data.length; i++){
     var newTime = moment(response.data[i].datetime).format("MM DD YYYY")
@@ -58,12 +56,13 @@ Concert Date: ${newTime}
     )
     }
     }).catch(function (error){
-      // console.log(error);
+      console.log(error);
     });
   // name of the venue
   // venue location
   // date of the event (use moment to format this as MM/DD/YYYY)
 };
+
 
 function spot() {
   if (userInput === ""){
@@ -135,7 +134,7 @@ Actors: ${res.data.Actors}
       );
     })
   } else {
-  axios.get("http://www.omdbapi.com/?t="+ userInput+"&apikey=trilogy").then(
+  axios.get("http://www.omdbapi.com/?t="+ userInput +"&apikey=trilogy").then(
     function(res){
       console.log(
 `
@@ -152,7 +151,7 @@ Actors: ${res.data.Actors}
 `
       );
     }
-  )
+  );
   // title of the movie
   // year the movie came out
   // imdb rating of the movie
@@ -164,10 +163,28 @@ Actors: ${res.data.Actors}
   // if no movie is provided, default to Mr. Nobody
   }
 }
+
 function command() {
   console.log(userInput + "4");
   fs.readFile("random.txt", "utf8", function(err, data){
-    console.log(data);
+    let array = data.split(",")
+    userInput = array[1];
+    if (array[0] === "") {
+      console.log("Please enter a command");
+    } else if (array[0] === "concert-this") {
+      concert(keys.concrt);
+    } else if (array[0] === "spotify-this-song"){
+      //spotify-this-song
+      spot();
+    } else if (array[0] === "movie-this"){
+      //movie-this
+      movie();
+    } else if (array[0] === "do-what-it-says"){
+      //do-what-it-says
+      command();
+    }
+    
+    console.log(array);
   });
 
   console.log("after calling readFile");
